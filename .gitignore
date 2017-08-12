@@ -7,6 +7,8 @@ node_modules
 .DS_Store
 Thumbs.db
 
-www/server
-www/public
+/www/server/**
+/www/public/**
+!www/server/.gitkeep
+!www/public/.gitkeep
 www/config.json
