@@ -11,7 +11,7 @@
     "ng": "ng",
     "start:app": "ng serve --port 1666",
     "build:app": "ng build",
-    "build:app:prod": "ng build -prod --aot --build-optimizer",
+    "build:app:prod": "ng build -prod --aot",
     "test:app": "ng test",
     "lint:app": "ng lint --format verbose --type-check && stylelint src/**/*.less",
     "e2e": "ng e2e"
