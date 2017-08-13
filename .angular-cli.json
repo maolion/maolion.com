@@ -6,7 +6,7 @@
   "apps": [
     {
       "root": "src/client",
-      "outDir": "www/public",
+      "outDir": "./.tmp/www/public",
       "assets": [
         "assets",
         "favicon.ico"
