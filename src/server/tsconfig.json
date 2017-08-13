@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "module": "commonjs",
+    "declaration": true,
+    "sourceMap": true,
+    "outDir": "../../www/server/app",
+    "rootDir": "src",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "stripInternal": true,
+    "plugins": [
+      {
+        "name": "tslint-language-service"
+      }
+    ]
+  }
+}
