@@ -1,9 +1,14 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "target": "es2017",
+    "target": "es5",
     "module": "commonjs",
-    "outDir": "../../www/server/app",
+    "lib": [
+      "dom",
+      "es2015"
+    ],
+    "rootDir": ".",
+    "outDir": "../../node_modules/shared",
     "plugins": [
       {
         "name": "tslint-language-service"
@@ -11,4 +16,3 @@
     ]
   }
 }
-

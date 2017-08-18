@@ -1,11 +1,24 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "target": "es5",
+    "lib": [
+      "es2017",
+      "dom"
+    ],
     "outDir": "../../out-tsc/app",
     "baseUrl": "./",
     "rootDir": "./",
     "module": "es2015",
-    "types": []
+    "types": [],
+    "plugins": [
+      {
+        "name": "tslint-language-service"
+      },
+      {
+        "name": "@angular/language-service"
+      }
+    ]
   },
   "exclude": [
     "**/*.spec.ts",
