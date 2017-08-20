@@ -1,3 +1,4 @@
 export * from './type';
-export * from './injectable';
-export * from './app';
+export * from './dependency-injection';
+
+export { getApp, getInjection } from './metadata';
