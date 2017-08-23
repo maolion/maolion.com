@@ -10,5 +10,5 @@ Thumbs.db
 
 /www/server/**
 /www/public/**
-!www/server/.gitkeep
+!www/server/index.js
 !www/public/.gitkeep
