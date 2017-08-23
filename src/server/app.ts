@@ -1,10 +1,12 @@
 import { App } from './core';
 
-import { Config } from './services/';
+import { Config } from './services';
 
 @App()
-export class MainApplication {
+export default class MainApplication {
   constructor(
     config: Config,
-  ) { }
+  ) {
+    console.log(config.host);
+  }
 }
