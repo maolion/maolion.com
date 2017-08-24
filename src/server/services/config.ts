@@ -2,6 +2,10 @@ import { Injectable } from '../core';
 
 @Injectable()
 export class Config {
-  host: string;
-  port: string;
+  host = 'localhost';
+  port = '80';
+
+  dateTimeFormat = 'YYYY/MM/DD HH:ii:ss';
+  dateFormat = 'YYYY/MM/DD';
+  timeFormat = 'HH:ii:ss';
 }

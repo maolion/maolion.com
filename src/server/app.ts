@@ -1,12 +1,15 @@
 import { App } from './core';
 
-import { Config } from './services';
+import { Config, HttpServer, Welcome } from './services';
 
 @App()
 export default class MainApplication {
   constructor(
-    config: Config,
+    public config: Config,
+    welcome: Welcome,
+    httpServer: HttpServer,
   ) {
-    console.log(config.host);
+    welcome.to();
+    httpServer.start();
   }
 }

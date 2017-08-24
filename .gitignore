@@ -1,14 +1,16 @@
-/dist/
-node_modules
-
-/.tmp/
-/.vscode/**
-!/.vscode/settings.json
-
 .DS_Store
 Thumbs.db
 
-/www/server/**
-/www/public/**
-!www/server/index.js
-!www/public/.gitkeep
+node_modules
+/dist/
+
+/.tmp/
+//.vscode/*
+!/.vscode/settings.json
+
+
+/www/server/*
+/www/public/*
+!/www/server/index.js
+!/www/server/meta/
+!/www/public/.gitkeep
