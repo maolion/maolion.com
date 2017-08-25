@@ -15,7 +15,7 @@ export interface LoggerWriter {
   error(reason: string): void;
 }
 
-export type LoggerLabel = 'EVENT' | 'WARN' | 'ERROR' | 'DEBUG';
+export type LoggerLabel = 'EVENT' | 'WARN' | 'ERROR' | 'INFO';
 
 @Injectable()
 export class Logger {
@@ -34,8 +34,12 @@ export class Logger {
   }
 
   debug(...args: string[]): void {
+    this.loggerWriter.write(args.join(' '));
+  }
+
+  info(...args: string[]): void {
     this.loggerWriter.write(
-      `${this.wrapLabel('DEBUG')} ${this.date()} ${args.join(' ')}`,
+      `${this.wrapLabel('INFO')} ${this.date()} ${args.join(' ')}`,
     );
   }
 
@@ -46,14 +50,26 @@ export class Logger {
   }
 
   warn(...args: string[]): void {
+    let data = args.join(' ');
+
+    if (this.enableLoggerColors) {
+      data = chalk.yellow(data);
+    }
+
     this.loggerWriter.write(
-      `${this.wrapLabel('WARN')} ${this.date()} ${args.join(' ')}`,
+      `${this.wrapLabel('WARN')} ${this.date()} ${data}`,
     );
   }
 
   error(...args: string[]): void {
+    let data = args.join(' ');
+
+    if (this.enableLoggerColors) {
+      data = chalk.red(data);
+    }
+
     this.loggerWriter.write(
-      `${this.wrapLabel('ERROR')} ${this.date()} ${args.join(' ')}`,
+      `${this.wrapLabel('ERROR')} ${this.date()} ${data}`,
     );
   }
 
@@ -67,7 +83,7 @@ export class Logger {
 
   private wrapLabelWithColors(label: LoggerLabel): string {
     switch (label) {
-      case 'DEBUG':
+      case 'INFO':
         return chalk.bold.cyan(`[${label}]`);
       case 'ERROR':
         return chalk.bold.red(`[${label}]`);
