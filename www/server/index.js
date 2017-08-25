@@ -10,7 +10,7 @@ const {
   Logger,
 } = require('./app/services');
 
-const MainApplication = require('./app/app').default;
+const MainApplication = require('./app/main').default;
 
 const config = require('./config')
 
