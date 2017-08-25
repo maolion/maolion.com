@@ -1,13 +1,15 @@
+import 'source-map-support/register';
 import { App } from './core';
 
-import { Config, HttpServer, Welcome } from './services';
+import { Config, HttpServer, Logger, Welcome } from './services';
 
 @App()
 export default class MainApplication {
   constructor(
     public config: Config,
+    public httpServer: HttpServer,
+    public logger: Logger,
     welcome: Welcome,
-    httpServer: HttpServer,
   ) {
     welcome.to();
     httpServer.start();

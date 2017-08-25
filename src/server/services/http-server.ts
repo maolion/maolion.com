@@ -22,10 +22,9 @@ export class HttpServer {
 
   start(): void {
     let {logger, config, server} = this;
-    logger.event('Starting http server');
 
     server.listen(config.port, () => {
-      logger.event(`Http server started at http://${config.host}:${config.port}`);
+      logger.event(`Http server is listening on ${config.host}:${config.port}`);
     });
   }
 }

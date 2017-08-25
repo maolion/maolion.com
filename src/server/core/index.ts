@@ -1,2 +1,2 @@
 export * from './type';
-export * from './dependency-injection';
+export * from './di';

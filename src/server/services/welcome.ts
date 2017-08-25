@@ -16,18 +16,24 @@ export class Welcome {
 
   to() {
     this.printLogo();
+    this.logger.event('Hello, world');
   }
 
   private printLogo(): void {
+    let {logger} = this;
     const logoData = FS.readFileSync(Path.join(WWW_SERVER_META_DIR, 'logo.txt'), 'utf8');
 
-    const chalkLogoData = logoData
-      .replace('maolion.com', 'maolion!com')
-      .replace(/[\.]/g, match => chalk.gray(match))
-      .replace('maolion!com', chalk.yellow('maolion.com'))
-      .replace(/\/+/g, match => chalk.green(match))
-      .replace(/\\/g, match => chalk.yellow(match));
+    if (logger.enableLoggerColors) {
+      const chalkLogoData = logoData
+        .replace('maolion.com', 'maolion!com')
+        .replace(/[\.]/g, match => chalk.gray(match))
+        .replace('maolion!com', chalk.yellow('maolion.com'))
+        .replace(/\/+/g, match => chalk.green(match))
+        .replace(/\\/g, match => chalk.yellow(match));
 
-    this.logger.info(chalkLogoData);
+      logger.log(chalkLogoData);
+    } else {
+      logger.log(logoData);
+    }
   }
 }

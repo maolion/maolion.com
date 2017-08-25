@@ -1,9 +1,13 @@
 import 'reflect-metadata';
 import { Controller } from 'vio';
 
-import { Type } from './type';
+import { Type } from '../type';
 
 import * as metadata from './metadata';
+
+import { InjectionToken } from './injection-token';
+
+import { getInjection } from './dependency';
 
 export type InjectionDecorator = (TargetClass: Type<any>) => any;
 
@@ -77,42 +81,23 @@ export function Route(): InjectionDecorator {
   };
 }
 
-export function inject<T extends Type<any>>(TargetClass: T, instance: any): void {
-  if (!metadata.has('providers', TargetClass)) {
-    throw new Error(`No provider for ${TargetClass.name}`);
-  }
-
-  metadata.set('providers', TargetClass, instance);
+export function Inject(token: InjectionToken): ParameterDecorator {
+  return (target: object, propertyKey: string | symbol, parameterIndex: number): void => {
+    let dependenceInjectionTypes: (Type<any> | InjectionToken)[] = Reflect.getMetadata('design:paramtypes', target);
+    dependenceInjectionTypes[parameterIndex] = token;
+  };
 }
 
 export function getApp<T>(): T | undefined {
   return metadata.get('app');
 }
 
-export function getInjection<T>(target: Type<T>): T {
-  let matchTargetType: 'providers' | 'modules' | 'routes' | undefined;
-
-  if (metadata.has('providers', target)) {
-    matchTargetType = 'providers';
-  } else if (metadata.has('modules', target)) {
-    matchTargetType = 'modules';
-  } else if (metadata.has('routes', target)) {
-    matchTargetType = 'routes';
-  }
-
-  if (!matchTargetType) {
-    throw new Error(`No provider for ${target.name}`);
-  }
-
-  return metadata.get(matchTargetType, target) || new target();
-}
-
 function makeDependencyInjection<T extends Type<any>>(TargetClass: T, init?: (instance: any) => void): T {
-  let dependenceInjections: Type<any>[] = Reflect.getMetadata('design:paramtypes', TargetClass);
+  let dependenceInjectionTypes: Type<any>[] = Reflect.getMetadata('design:paramtypes', TargetClass);
 
   const TargetClassWrapper = class extends TargetClass {
     constructor(...args: any[]) {
-      super(...dependenceInjections.map(getInjection));
+      super(...dependenceInjectionTypes.map(getInjection));
 
       if (init) {
         init(this);
