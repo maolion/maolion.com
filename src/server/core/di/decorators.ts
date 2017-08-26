@@ -45,32 +45,10 @@ export function Module(): InjectionDecorator {
   };
 }
 
-export function Route(): InjectionDecorator {
+export function Routes(): InjectionDecorator {
   return <T extends Type<any>>(TargetClass: T): T => {
-    if (TargetClass.prototype.constructor !== Object && !(TargetClass.prototype instanceof Controller)) {
-      throw new Error('This route class must extends "vio/Controller" class.');
-    }
-
     if (!(TargetClass.prototype instanceof Controller)) {
-      const OriginalTargetClass = TargetClass;
-      const originalTargetClassPrototype = TargetClass.prototype;
-
-      class Bridge extends Controller {
-        constructor(...args: any[]) {
-          super();
-          OriginalTargetClass.apply(this, ...args);
-        }
-      }
-
-      for (let key of Object.keys(originalTargetClassPrototype)) {
-        (Bridge.prototype as any)[key] = originalTargetClassPrototype[key];
-      }
-
-      Object.defineProperty(Bridge, 'name', {
-        value: TargetClass.name,
-      });
-
-      TargetClass = Bridge as T;
+      throw new Error('This route class must extends "vio/Controller" class.');
     }
 
     const TargetClassWrapper = makeDependencyInjection(TargetClass);
@@ -93,7 +71,7 @@ export function getApp<T>(): T | undefined {
 }
 
 function makeDependencyInjection<T extends Type<any>>(TargetClass: T, init?: (instance: any) => void): T {
-  let dependenceInjectionTypes: Type<any>[] = Reflect.getMetadata('design:paramtypes', TargetClass);
+  let dependenceInjectionTypes: Type<any>[] = Reflect.getMetadata('design:paramtypes', TargetClass) || [];
 
   const TargetClassWrapper = class extends TargetClass {
     constructor(...args: any[]) {
