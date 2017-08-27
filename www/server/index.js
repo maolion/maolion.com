@@ -1,6 +1,7 @@
+require('source-map-support/register');
+
 const chalk = require('chalk');
 const moment = require('moment');
-
 const { inject } = require('./app/core');
 
 const {
