@@ -12,5 +12,4 @@ node_modules
 /www/server/*
 /www/public/*
 !/www/server/index.js
-!/www/server/meta/
 !/www/public/.gitkeep

@@ -1,13 +1,20 @@
 import 'source-map-support/register';
 import { App } from './core';
 
-import { Config, HttpServer, Logger, Welcome } from './services';
+import {
+  Config,
+  HttpServer,
+  Logger,
+  Router,
+  Welcome,
+} from './services';
 
 @App()
 export default class MainApplication {
   constructor(
     public config: Config,
     public httpServer: HttpServer,
+    public router: Router,
     public logger: Logger,
     welcome: Welcome,
   ) {

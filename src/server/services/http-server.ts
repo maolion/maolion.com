@@ -1,21 +1,20 @@
-import { Server, createServer } from 'http';
-import * as Path from 'path';
-
+import {
+  json as jsonBodyParser,
+  urlencoded as urlencodedBodyParser,
+} from 'body-parser';
+import * as cors from 'cors';
 import * as express from 'express';
-import { Router } from 'vio';
+import { Server, createServer } from 'http';
 
 import { Injectable } from '../core';
 
 import { Config } from './config';
 import { Logger } from './logger';
 
-import { WWW_SERVER_APP_DIR } from '../constants';
-
 @Injectable()
 export class HttpServer {
   server: Server;
   expressApplication: express.Express;
-  router: Router;
 
   constructor(
     private logger: Logger,
@@ -23,7 +22,6 @@ export class HttpServer {
   ) {
     this.createExpressApplication();
     this.createServer();
-    this.createRouter();
   }
 
   start(): void {
@@ -35,18 +33,21 @@ export class HttpServer {
   }
 
   private createExpressApplication(): void {
-    this.expressApplication = express();
+    let app = this.expressApplication = express();
+
+    app.use(jsonBodyParser());
+    app.use(urlencodedBodyParser({ extended: true }));
+
+    app.use(cors({
+      credentials: true,
+      // tslint:disable-next-line:no-null-keyword
+      origin: (origin, callback) => callback(null, true),
+    }));
+
+    app.disable('x-powered-by');
   }
 
   private createServer(): void {
     this.server = createServer(this.expressApplication);
-  }
-
-  private createRouter(): void {
-    let {expressApplication} = this;
-
-    this.router = new Router(expressApplication, {
-      routesRoot: Path.join(WWW_SERVER_APP_DIR, 'routes'),
-    });
   }
 }
