@@ -5,7 +5,7 @@ node_modules
 /dist/
 
 /.tmp/
-//.vscode/*
+/.vscode/*
 !/.vscode/settings.json
 
 
