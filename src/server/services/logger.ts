@@ -112,8 +112,6 @@ export class Logger {
   }
 
   private process(content: string): string {
-    content = content.replace(/\n/g, '\n      ');
-
     return content;
   }
 }
