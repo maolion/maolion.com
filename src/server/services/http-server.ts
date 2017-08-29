@@ -5,11 +5,14 @@ import {
 import * as cors from 'cors';
 import * as express from 'express';
 import { Server, createServer } from 'http';
+import * as Path from 'path';
 
 import { Injectable } from '../core';
 
 import { Config } from './config';
 import { Logger } from './logger';
+
+import { WWW_CLIENT_APP_DIR } from '../constants';
 
 @Injectable()
 export class HttpServer {
@@ -45,6 +48,8 @@ export class HttpServer {
     }));
 
     app.disable('x-powered-by');
+
+    app.use('/', express.static(Path.join(WWW_CLIENT_APP_DIR)));
   }
 
   private createServer(): void {
