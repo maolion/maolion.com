@@ -1,7 +1,7 @@
 import * as chalk from 'chalk';
 import * as moment from 'moment';
 
-import { Inject, Injectable, InjectionToken } from '../core';
+import { Inject, Injectable, InjectionToken } from '../modules/core';
 
 import { Config } from './config';
 

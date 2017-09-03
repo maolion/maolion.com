@@ -2,7 +2,7 @@ import * as chalk from 'chalk';
 import * as FS from 'fs';
 import * as Path from 'path';
 
-import { Injectable } from '../core';
+import { Injectable } from '../modules/core';
 
 import { Logger } from './logger';
 

@@ -4,7 +4,7 @@ import {
   get,
 } from 'vio';
 
-import { Routes } from '../../core';
+import { Routes } from '../../modules/core';
 
 @Routes()
 export default class extends Controller {

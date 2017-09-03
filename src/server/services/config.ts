@@ -1,4 +1,4 @@
-import { Injectable } from '../core';
+import { Injectable } from '../modules/core';
 
 @Injectable()
 export class Config {

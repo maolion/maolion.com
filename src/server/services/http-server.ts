@@ -5,14 +5,14 @@ import {
 import * as cors from 'cors';
 import * as express from 'express';
 import { Server, createServer } from 'http';
-import * as Path from 'path';
+// import * as Path from 'path';
 
-import { Injectable } from '../core';
+import { Injectable } from '../modules/core';
 
 import { Config } from './config';
 import { Logger } from './logger';
 
-import { WWW_CLIENT_APP_DIR } from '../constants';
+// import { WWW_CLIENT_APP_DIR } from '../constants';
 
 @Injectable()
 export class HttpServer {
@@ -49,7 +49,12 @@ export class HttpServer {
 
     app.disable('x-powered-by');
 
-    app.use('/', express.static(Path.join(WWW_CLIENT_APP_DIR)));
+    // app.use('/', express.static(Path.join(WWW_CLIENT_APP_DIR)));
+
+    // app.engine('html', (a: any, b: any) => {
+    //   console.log(a, b)
+    //   return 'hello,world';
+    // });
   }
 
   private createServer(): void {

@@ -1,0 +1,91 @@
+{
+  "problemMatchers": {
+    "typescript-tsc": {
+      "owner": "typescript",
+      "pattern": {
+        "regexp": "^([^\\s].*)\\((\\d+|\\d+,\\d+|\\d+,\\d+,\\d+,\\d+)\\):\\s+(error|warning|info)\\s+(TS\\d+)\\s*:\\s*(.*)$",
+        "file": 1,
+        "location": 2,
+        "severity": 3,
+        "code": 4,
+        "message": 5
+      },
+      "watching": {
+        "activeOnStart": true,
+        "beginsPattern": "^\\s*(?:message TS6032:|\\d{1,2}:\\d{1,2}:\\d{1,2}(?: AM| PM)? -) File change detected\\. Starting incremental compilation\\.\\.\\.",
+        "endsPattern": "^\\s*(?:message TS6042:|\\d{1,2}:\\d{1,2}:\\d{1,2}(?: AM| PM)? -) Compilation complete\\. Watching for file changes\\."
+      }
+    },
+    "typescript-ng-cli": {
+      "owner": "typescript",
+      "pattern": {
+        "regexp": "^(ERROR|WARNING) in (.+\\.(?:ts|html)) \\((\\d+|\\d+,\\d+|\\d+,\\d+,\\d+,\\d+)\\): (.+)$",
+        "severity": 1,
+        "file": 2,
+        "location": 3,
+        "message": 4
+      },
+      "watching": {
+        "activeOnStart": true,
+        "beginsPattern": "webpack: Compiling...",
+        "endsPattern": "webpack: (?:Compiled successfully|Compiled with warnings|Failed to compile)."
+      }
+    },
+    "tslint": {
+      "owner": "typescript",
+      "pattern": {
+        "regexp": "^(ERROR|WARNING): (\\([^)]+\\)) (.+\\.(:ts|html))\\[(\\d+|\\d+, \\d+)\\]: (.+)$",
+        "severity": 1,
+        "file": 3,
+        "location": 4,
+        "message": "$5 $2"
+      }
+    }
+  },
+  "tasks": {
+    "start-client": {
+      "executable": "ng",
+      "args": [
+        "serve", "--port 1666",  "-pr=false"
+      ],
+      "problemMatcher": "typescript-ng-cli"
+    },
+    "start-server": {
+      "executable": "node",
+      "args": [
+        "www/server/index.js", "--verbose"
+      ],
+      "watch": [
+        "www/server/*.js",
+        "www/server/app/services/**/*.js",
+        "www/server/app/core/**/*.js",
+        "node_modules/shared/**/*.js"
+      ]
+    },
+    "build-client": {
+      "executable": "ng",
+      "args": [
+        "build"
+      ]
+    },
+    "build-server": {
+      "executable": "tsc",
+      "args": [
+        "-p", "src/server",
+        "-w"
+      ],
+      "problemMatcher": "typescript-tsc"
+    },
+    "build-shared": {
+      "executable": "tsc",
+      "args": [
+        "-p", "src/shared",
+        "-w"
+      ],
+      "problemMatcher": "typescript-tsc"
+    }
+  },
+  "groups": {
+    "debug": ["start-client", "start-server", "build-server", "build-shared"]
+  }
+}

@@ -1,4 +1,4 @@
-import { App } from './core';
+import { App } from './modules/core';
 
 import {
   Config,
