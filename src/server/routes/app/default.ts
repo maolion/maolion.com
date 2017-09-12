@@ -4,16 +4,11 @@ import {
   get,
 } from 'vio';
 
-import { Routes, getInjection } from '../../modules/core';
-import { Logger } from '../../services/logger';
+import { Routes } from '../../modules/core';
 
 import { WWW_CLIENT_APP_DIR } from '../../constants';
 
 const MAIN_PAGE_PATH = Path.join(WWW_CLIENT_APP_DIR, 'index.html');
-
-const logger = getInjection(Logger);
-
-logger.log(WWW_CLIENT_APP_DIR, '<<<<<<');
 
 @Routes()
 export default class extends Controller {

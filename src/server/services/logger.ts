@@ -41,30 +41,30 @@ export class Logger {
     this.chalk = new chalk.constructor({ enabled: this.enableLoggerColors });
   }
 
-  log(...args: string[]): void {
+  log(...args: any[]): void {
     this.loggerWriter.write(args.join(' '));
   }
 
-  debug(message: string, ...optionalParams: any[]): void {
+  debug(message: any, ...optionalParams: any[]): void {
     debugWriter(
       `${this.wrapLabel('DEBUG')} ${this.date()} ${this.process(message)}`,
       ...optionalParams,
     );
   }
 
-  info(...args: string[]): void {
+  info(...args: any[]): void {
     this.loggerWriter.write(
       `${this.wrapLabel('INFO')} ${this.date()} ${this.process(args.join(' '))}`,
     );
   }
 
-  event(...args: string[]): void {
+  event(...args: any[]): void {
     this.loggerWriter.write(
       `${this.wrapLabel('EVENT')} ${this.date()} ${this.process(args.join(' '))}`,
     );
   }
 
-  warn(...args: string[]): void {
+  warn(...args: any[]): void {
     let data = this.chalk.yellow(args.join(' '));
 
     this.loggerWriter.write(
@@ -72,7 +72,7 @@ export class Logger {
     );
   }
 
-  error(...reason: string[]): void {
+  error(...reason: any[]): void {
     let message = reason.join(' ');
 
     if (this.enableLoggerColors) {

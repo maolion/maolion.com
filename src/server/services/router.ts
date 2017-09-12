@@ -19,7 +19,5 @@ export class Router extends VIORouter {
       routesRoot: Path.join(WWW_SERVER_APP_DIR, 'routes'),
       viewsRoot: Path.join(WWW_CLIENT_APP_DIR),
     });
-
-    logger.debug(WWW_SERVER_APP_DIR);
   }
 }
