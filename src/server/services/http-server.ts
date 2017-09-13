@@ -11,7 +11,7 @@ import { Injectable } from '../modules/core';
 
 import { Config } from './config';
 import { Logger } from './logger';
-import { Template } from './template';
+import { TemplateEngine } from './template-engine';
 
 import { WWW_CLIENT_APP_DIR } from '../constants';
 
@@ -23,7 +23,7 @@ export class HttpServer {
   constructor(
     private logger: Logger,
     private config: Config,
-    private template: Template,
+    private templateEngine: TemplateEngine,
   ) {
     this.createExpressApplication();
     this.createServer();
@@ -38,8 +38,6 @@ export class HttpServer {
   }
 
   private createExpressApplication(): void {
-    let {logger} = this;
-
     let app = this.expressApplication = express();
 
     app.use(jsonBodyParser());
@@ -55,14 +53,7 @@ export class HttpServer {
 
     app.use('/app', express.static(Path.join(WWW_CLIENT_APP_DIR), { index: false }));
 
-    app.engine('html', (path: string, options: any, callback: (error: Error | undefined, html?: string) => void, v: any) => {
-      this.template.readFile(path)
-        .then(html => callback(undefined, html))
-        .catch(reason => {
-          logger.error(reason);
-          callback(reason);
-        });
-    });
+    app.engine('html', this.templateEngine.render);
   }
 
   private createServer(): void {

@@ -42,7 +42,7 @@ export class Logger {
   }
 
   log(...args: any[]): void {
-    this.loggerWriter.write(args.join(' '));
+    this.loggerWriter.write(args.map(toString).join(' '));
   }
 
   debug(message: any, ...optionalParams: any[]): void {
@@ -54,18 +54,18 @@ export class Logger {
 
   info(...args: any[]): void {
     this.loggerWriter.write(
-      `${this.wrapLabel('INFO')} ${this.date()} ${this.process(args.join(' '))}`,
+      `${this.wrapLabel('INFO')} ${this.date()} ${this.process(args.map(toString).join(' '))}`,
     );
   }
 
   event(...args: any[]): void {
     this.loggerWriter.write(
-      `${this.wrapLabel('EVENT')} ${this.date()} ${this.process(args.join(' '))}`,
+      `${this.wrapLabel('EVENT')} ${this.date()} ${this.process(args.map(toString).join(' '))}`,
     );
   }
 
   warn(...args: any[]): void {
-    let data = this.chalk.yellow(args.join(' '));
+    let data = this.chalk.yellow(args.map(toString).join(' '));
 
     this.loggerWriter.write(
       `${this.wrapLabel('WARN')} ${this.date()} ${this.process(data)}`,
@@ -73,7 +73,7 @@ export class Logger {
   }
 
   error(...reason: any[]): void {
-    let message = reason.join(' ');
+    let message = reason.map(toString).join(' ');
 
     if (this.enableLoggerColors) {
       message = chalk.red(message);
@@ -104,7 +104,11 @@ export class Logger {
   }
 
   private date(): string {
-    let {config: {dateTimeFormat}, chalk} = this;
+    let {config: {dateTimeFormat, env}, chalk} = this;
+
+    if (env !== 'production') {
+      return '';
+    }
 
     let date = moment().format(dateTimeFormat);
 
@@ -114,4 +118,22 @@ export class Logger {
   private process(content: string): string {
     return content;
   }
+}
+
+function toString(object: any): string {
+  if ((object || typeof object !== 'undefined') && typeof object !== 'object') {
+    return object.toString();
+  } else if (object instanceof Function) {
+    return object.toString();
+  } else if (object instanceof Error) {
+    return object.stack || object.message;
+  } else if (object) {
+    return JSON.stringify(object);
+  } else if (object === undefined) {
+    return 'undefined';
+  } else if (object === null) {
+    return 'null';
+  }
+
+  return object;
 }

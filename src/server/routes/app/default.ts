@@ -20,6 +20,6 @@ export default class extends Controller {
     view: 'index.html',
   })
   default() {
-    return {};
+    return {a: 10, b: 20};
   }
 }
