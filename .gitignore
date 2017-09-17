@@ -14,3 +14,4 @@ node_modules
 /www/public/*
 !/www/server/index.js
 !/www/public/.gitkeep
+!/www/public/favicon.ico

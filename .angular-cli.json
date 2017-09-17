@@ -9,8 +9,7 @@
       "outDir": "./www/public/app",
       "deployUrl": "app",
       "assets": [
-        "assets",
-        "favicon.ico"
+        { "glob": "**/*", "input": "./assets/", "output": "./assets/" }
       ],
       "index": "index.html",
       "main": "main.ts",
