@@ -17,7 +17,7 @@ var AppBootstrap = (function() {
       // error
       function (handler) { listeners.error = handler },
       // done
-      function (handler) { listeners.done = handler },
+      function (handler) { listeners.done = handler }
     );
 
     onReady();
@@ -36,9 +36,9 @@ var AppBootstrap = (function() {
       }
     }
 
-    function onProgress(percent, resourceUrl) {
+    function onProgress(percent, nextResourceUrl) {
       if (listeners.process) {
-        listeners.process(percent, resourceUrl);
+        listeners.process(percent, nextResourceUrl);
       }
     }
 
@@ -67,9 +67,14 @@ var AppBootstrap = (function() {
     function next() {
       var item = pendingItems.shift();
 
+      var loadedCount = count - pendingItems.length - (loadingCount + 1);
+
+      onProgress(loadedCount > 0 ? loadedCount / count : 0, item);
+
       if (!item) {
         return;
       }
+
 
       loadingCount++;
 
@@ -89,21 +94,22 @@ var AppBootstrap = (function() {
     }
 
     function onResourceLoadComplete(currentLoadItem, error) {
-      var blockedNextResource = !(isStyleResource(item) && item.block !== true);
+      var blockedNextResource = !(isStyleResource(currentLoadItem) && currentLoadItem.block !== true);
 
       if (error) {
         if (blockedNextResource) {
-          onComplete(new Error('Failed to load ' + item));
+          onComplete(new Error('Failed to load ' + currentLoadItem));
         }
 
         return;
       }
 
-      let itemsRemainCount = pendingItems.length;
+      loadingCount = Math.max(loadingCount - 1, 0);
 
-      onProgress(itemsRemainCount > 0 ? count / itemsRemainCount : 0, currentLoadItem);
+      var loadedCount = count - pendingItems.length - loadingCount;
 
-      if (--loadingCount === 0 && itemsRemainCount === 0) {
+      if (loadingCount === 0 && loadedCount === count) {
+        onProgress(1);
         onComplete();
         return;
       }
@@ -179,13 +185,13 @@ var AppBootstrap = (function() {
 
       clearTimeout(timeoutTimerHandle);
 
-      callback();
+      onComplete();
     };
 
     function onError() {
       loader.onload = loader.onerror = undefined;
 
-      callback(true);
+      onComplete(true);
     };
   }
 

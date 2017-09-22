@@ -1,0 +1,11 @@
+body {
+  background: red;
+}
+
+body div {
+  padding: 0;
+}
+
+body p {
+  padding: 20px;
+}
