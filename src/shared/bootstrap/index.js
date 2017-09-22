@@ -1,6 +1,59 @@
-var ResourceLoader = (function () {
-  var TIMEOUT = 1200;
+var AppBootstrap = (function() {
+  var TIMEOUT = 12000;
   var head = document.getElementsByTagName('head')[0];
+
+  return {
+    start: start,
+  };
+
+  function start(items, process) {
+    var listeners = { };
+
+    process(
+      // ready
+      function (handler) { listeners.ready = handler },
+      // progress
+      function (handler) { listeners.process = handler },
+      // error
+      function (handler) { listeners.error = handler },
+      // done
+      function (handler) { listeners.done = handler },
+    );
+
+    onReady();
+
+    load(items, onProgress, function (error) {
+      if (error) {
+        onError(error);
+      } else {
+        onDone();
+      }
+    });
+
+    function onReady() {
+      if (listeners.ready) {
+        listeners.ready(items);
+      }
+    }
+
+    function onProgress(percent, resourceUrl) {
+      if (listeners.process) {
+        listeners.process(percent, resourceUrl);
+      }
+    }
+
+    function onError(reason) {
+      if (listeners.error) {
+        listeners.error(reason);
+      }
+    }
+
+    function onDone() {
+      if (listeners.done) {
+        listeners.done();
+      }
+    }
+  }
 
   function load(items, onProgress, onComplete) {
     items = typeof items === 'string' ? [items] : items;
@@ -147,11 +200,4 @@ var ResourceLoader = (function () {
   function isScriptsResource(item) {
     return typeof item === 'object' ? item.type === 'scripts' : /\.js$/i.test(item);
   }
-
-  return {
-    load: load,
-    loadScript: loadScript,
-    loadStyle: loadStyle,
-    insertStyle: insertStyle,
-  };
 })();
