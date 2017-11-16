@@ -1,10 +1,6 @@
 {
-  "extends": [
-    "vts"
-  ],
-  "rulesDirectory": [
-    "../../node_modules/codelyzer"
-  ],
+  "extends": ["vts/tslint-prettier"],
+  "rulesDirectory": ["../../node_modules/codelyzer"],
   "rules": {
     "max-line-length": false,
     "directive-selector": [true, "attribute", "m", "camelCase"],

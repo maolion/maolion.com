@@ -5,17 +5,13 @@
     "selector-type-no-unknown": [
       true,
       {
-        "ignore": [
-          "custom-elements"
-        ]
+        "ignore": ["custom-elements"]
       }
     ],
     "selector-pseudo-element-no-unknown": [
       true,
       {
-        "ignorePseudoElements": [
-          "ng-deep"
-        ]
+        "ignorePseudoElements": ["ng-deep"]
       }
     ]
   }

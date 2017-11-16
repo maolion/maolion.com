@@ -8,17 +8,13 @@
       "root": "src/client",
       "outDir": "./www/public/app",
       "deployUrl": "app",
-      "assets": [
-        { "glob": "**/*", "input": "./assets/", "output": "./assets/" }
-      ],
+      "assets": [{"glob": "**/*", "input": "./assets/", "output": "./assets/"}],
       "index": "index.html",
       "main": "main.ts",
       "polyfills": "polyfills.ts",
       "tsconfig": "tsconfig.json",
       "prefix": "m",
-      "styles": [
-        "styles.less"
-      ],
+      "styles": ["styles.less"],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
       "environments": {

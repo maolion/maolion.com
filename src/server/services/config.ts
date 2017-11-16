@@ -1,4 +1,4 @@
-import { Injectable } from '../modules/core';
+import {Injectable} from '../modules/core';
 
 export type EnvironmentType = 'debug' | 'production';
 @Injectable()

@@ -2,17 +2,15 @@ import * as chalk from 'chalk';
 import * as FS from 'fs';
 import * as Path from 'path';
 
-import { Injectable } from '../modules/core';
+import {Injectable} from '../modules/core';
 
-import { Logger } from './logger';
+import {Logger} from './logger';
 
-import { WWW_META_DIR } from '../constants';
+import {WWW_META_DIR} from '../constants';
 
 @Injectable()
 export class Welcome {
-  constructor(
-    private logger: Logger,
-  ) { }
+  constructor(private logger: Logger) {}
 
   to() {
     this.printLogo();
@@ -21,7 +19,10 @@ export class Welcome {
 
   private printLogo(): void {
     let {logger} = this;
-    const logoData = FS.readFileSync(Path.join(WWW_META_DIR, 'logo.txt'), 'utf8');
+    const logoData = FS.readFileSync(
+      Path.join(WWW_META_DIR, 'logo.txt'),
+      'utf8',
+    );
 
     if (logger.enableLoggerColors) {
       const chalkLogoData = logoData

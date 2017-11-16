@@ -1,12 +1,9 @@
 import * as Path from 'path';
-import {
-  Controller,
-  get,
-} from 'vio';
+import {Controller, get} from 'vio';
 
-import { Routes } from '../../modules/core';
+import {Routes} from '../../modules/core';
 
-import { WWW_CLIENT_APP_DIR } from '../../constants';
+import {WWW_CLIENT_APP_DIR} from '../../constants';
 
 const MAIN_PAGE_PATH = Path.join(WWW_CLIENT_APP_DIR, 'index.html');
 

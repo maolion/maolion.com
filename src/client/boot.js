@@ -1,8 +1,9 @@
-onReady(function() {
+onReady(function(run) {
   console.log('ready go!!!');
+  run();
 });
 
-onProgress(function(percent, resourceUrl) {
+onProgress(function(percent, resource) {
   console.log('loading...', percent * 100 + '%');
 });
 
@@ -13,4 +14,3 @@ onError(function(error) {
 onDone(function() {
   console.log('welcome!!!');
 });
-

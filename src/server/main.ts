@@ -1,12 +1,6 @@
-import { App } from './modules/core';
+import {App} from './modules/core';
 
-import {
-  Config,
-  HttpServer,
-  Logger,
-  Router,
-  Welcome,
-} from './services';
+import {Config, HttpServer, Logger, Router, Welcome} from './services';
 
 @App()
 export default class MainApplication {

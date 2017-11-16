@@ -3,7 +3,8 @@
     "typescript-tsc": {
       "owner": "typescript",
       "pattern": {
-        "regexp": "^([^\\s].*)\\((\\d+|\\d+,\\d+|\\d+,\\d+,\\d+,\\d+)\\):\\s+(error|warning|info)\\s+(TS\\d+)\\s*:\\s*(.*)$",
+        "regexp":
+          "^([^\\s].*)\\((\\d+|\\d+,\\d+|\\d+,\\d+,\\d+,\\d+)\\):\\s+(error|warning|info)\\s+(TS\\d+)\\s*:\\s*(.*)$",
         "file": 1,
         "location": 2,
         "severity": 3,
@@ -12,14 +13,17 @@
       },
       "watching": {
         "activeOnStart": true,
-        "beginsPattern": "^\\s*(?:message TS6032:|\\d{1,2}:\\d{1,2}:\\d{1,2}(?: AM| PM)? -) File change detected\\. Starting incremental compilation\\.\\.\\.",
-        "endsPattern": "^\\s*(?:message TS6042:|\\d{1,2}:\\d{1,2}:\\d{1,2}(?: AM| PM)? -) Compilation complete\\. Watching for file changes\\."
+        "beginsPattern":
+          "^\\s*(?:message TS6032:|\\d{1,2}:\\d{1,2}:\\d{1,2}(?: AM| PM)? -) File change detected\\. Starting incremental compilation\\.\\.\\.",
+        "endsPattern":
+          "^\\s*(?:message TS6042:|\\d{1,2}:\\d{1,2}:\\d{1,2}(?: AM| PM)? -) Compilation complete\\. Watching for file changes\\."
       }
     },
     "typescript-ng-cli": {
       "owner": "typescript",
       "pattern": {
-        "regexp": "^(ERROR|WARNING) in (.+\\.(?:ts|html)) \\((\\d+|\\d+,\\d+|\\d+,\\d+,\\d+,\\d+)\\): (.+)$",
+        "regexp":
+          "^(ERROR|WARNING) in (.+\\.(?:ts|html)) \\((\\d+|\\d+,\\d+|\\d+,\\d+,\\d+,\\d+)\\): (.+)$",
         "severity": 1,
         "file": 2,
         "location": 3,
@@ -28,13 +32,15 @@
       "watching": {
         "activeOnStart": true,
         "beginsPattern": "webpack: Compiling...",
-        "endsPattern": "webpack: (?:Compiled successfully|Compiled with warnings|Failed to compile)."
+        "endsPattern":
+          "webpack: (?:Compiled successfully|Compiled with warnings|Failed to compile)."
       }
     },
     "tslint": {
       "owner": "typescript",
       "pattern": {
-        "regexp": "^(ERROR|WARNING): (\\([^)]+\\)) (.+\\.(:ts|html))\\[(\\d+|\\d+, \\d+)\\]: (.+)$",
+        "regexp":
+          "^(ERROR|WARNING): (\\([^)]+\\)) (.+\\.(:ts|html))\\[(\\d+|\\d+, \\d+)\\]: (.+)$",
         "severity": 1,
         "file": 3,
         "location": 4,
@@ -45,16 +51,12 @@
   "tasks": {
     "start-client": {
       "executable": "ng",
-      "args": [
-        "serve", "--port 1666",  "-pr=false"
-      ],
+      "args": ["serve", "--port 1666", "-pr=false"],
       "problemMatcher": "typescript-ng-cli"
     },
     "start-server": {
       "executable": "node",
-      "args": [
-        "www/server/index.js", "--verbose"
-      ],
+      "args": ["www/server/index.js", "--verbose"],
       "watch": [
         "www/server/*.js",
         "www/server/app/services/**/*.js",
@@ -64,24 +66,16 @@
     },
     "build-client": {
       "executable": "ng",
-      "args": [
-        "build"
-      ]
+      "args": ["build"]
     },
     "build-server": {
       "executable": "tsc",
-      "args": [
-        "-p", "src/server",
-        "-w"
-      ],
+      "args": ["-p", "src/server", "-w"],
       "problemMatcher": "typescript-tsc"
     },
     "build-shared": {
       "executable": "tsc",
-      "args": [
-        "-p", "src/shared",
-        "-w"
-      ],
+      "args": ["-p", "src/shared", "-w"],
       "problemMatcher": "typescript-tsc"
     }
   },

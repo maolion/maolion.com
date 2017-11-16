@@ -1,10 +1,6 @@
-import {
-  Controller,
-  ExpressRequest,
-  get,
-} from 'vio';
+import {Controller, ExpressRequest, get} from 'vio';
 
-import { Routes } from '../../modules/core';
+import {Routes} from '../../modules/core';
 
 @Routes()
 export default class extends Controller {

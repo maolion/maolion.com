@@ -1,9 +1,9 @@
 import * as chalk from 'chalk';
 import * as moment from 'moment';
 
-import { Inject, Injectable, InjectionToken } from '../modules/core';
+import {Inject, Injectable, InjectionToken} from '../modules/core';
 
-import { Config } from './config';
+import {Config} from './config';
 
 export type LogHandler = (...message: string[]) => void;
 
@@ -24,21 +24,16 @@ export class Logger {
   private chalk: chalk.Chalk;
 
   constructor(
-    @Inject(LoggerWriterToken)
-    public loggerWriter: LoggerWriter,
-
-    @Inject(LoggerColorsToken)
-    public enableLoggerColors: boolean,
-
+    @Inject(LoggerWriterToken) public loggerWriter: LoggerWriter,
+    @Inject(LoggerColorsToken) public enableLoggerColors: boolean,
     private config: Config,
   ) {
-    console.info =
-    console.log = this.info.bind(this);
+    console.info = console.log = this.info.bind(this);
     console.error = this.error.bind(this);
     console.warn = this.warn.bind(this);
     console.debug = this.debug.bind(this);
 
-    this.chalk = new chalk.constructor({ enabled: this.enableLoggerColors });
+    this.chalk = new chalk.constructor({enabled: this.enableLoggerColors});
   }
 
   log(...args: any[]): void {
@@ -54,13 +49,17 @@ export class Logger {
 
   info(...args: any[]): void {
     this.loggerWriter.write(
-      `${this.wrapLabel('INFO')} ${this.date()} ${this.process(args.map(toString).join(' '))}`,
+      `${this.wrapLabel('INFO')} ${this.date()} ${this.process(
+        args.map(toString).join(' '),
+      )}`,
     );
   }
 
   event(...args: any[]): void {
     this.loggerWriter.write(
-      `${this.wrapLabel('EVENT')} ${this.date()} ${this.process(args.map(toString).join(' '))}`,
+      `${this.wrapLabel('EVENT')} ${this.date()} ${this.process(
+        args.map(toString).join(' '),
+      )}`,
     );
   }
 
